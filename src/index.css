@@ -1,0 +1,305 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    scroll-behavior: smooth;
+    /* Core sci-fi palette */
+    --background: 220 20% 4%;
+    --foreground: 200 100% 95%;
+
+    --card: 220 25% 8%;
+    --card-foreground: 200 100% 95%;
+
+    --popover: 220 25% 6%;
+    --popover-foreground: 200 100% 95%;
+
+    /* Neon cyan primary */
+    --primary: 185 100% 50%;
+    --primary-foreground: 220 20% 4%;
+    --primary-glow: 185 100% 60%;
+
+    /* Electric blue secondary */
+    --secondary: 210 100% 50%;
+    --secondary-foreground: 200 100% 95%;
+
+    /* Muted for panels */
+    --muted: 220 20% 12%;
+    --muted-foreground: 200 40% 60%;
+
+    /* Accent - pink/magenta */
+    --accent: 320 100% 60%;
+    --accent-foreground: 200 100% 95%;
+
+    /* Destructive */
+    --destructive: 0 90% 50%;
+    --destructive-foreground: 200 100% 95%;
+
+    /* UI elements */
+    --border: 200 60% 20%;
+    --input: 220 25% 12%;
+    --ring: 185 100% 50%;
+
+    --radius: 0.5rem;
+
+    /* Custom sci-fi tokens */
+    --neon-cyan: 185 100% 50%;
+    --neon-blue: 210 100% 60%;
+    --neon-pink: 320 100% 60%;
+    --neon-green: 150 100% 50%;
+    --neon-orange: 30 100% 55%;
+
+    --glass: 220 25% 10%;
+    --glass-border: 200 60% 30%;
+
+    --grid-color: 185 100% 50%;
+    --grid-opacity: 0.08;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(185 100% 50%), hsl(210 100% 60%));
+    --gradient-accent: linear-gradient(135deg, hsl(320 100% 60%), hsl(280 100% 50%));
+    --gradient-dark: linear-gradient(180deg, hsl(220 20% 6%), hsl(220 20% 2%));
+
+    /* Shadows */
+    --shadow-neon: 0 0 20px hsl(185 100% 50% / 0.3), 0 0 40px hsl(185 100% 50% / 0.2);
+    --shadow-glow: 0 0 30px hsl(185 100% 50% / 0.4);
+    --shadow-card: 0 8px 32px hsl(220 20% 0% / 0.6);
+
+    --sidebar-background: 220 25% 6%;
+    --sidebar-foreground: 200 100% 95%;
+    --sidebar-primary: 185 100% 50%;
+    --sidebar-primary-foreground: 220 20% 4%;
+    --sidebar-accent: 220 25% 12%;
+    --sidebar-accent-foreground: 200 100% 95%;
+    --sidebar-border: 200 60% 20%;
+    --sidebar-ring: 185 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Rajdhani', sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Orbitron', sans-serif;
+    @apply tracking-wider;
+  }
+
+  code,
+  pre,
+  .mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer utilities {
+
+  /* Glass morphism */
+  .glass {
+    @apply bg-card/60 backdrop-blur-xl border border-glass-border;
+  }
+
+  .glass-strong {
+    @apply bg-card/80 backdrop-blur-2xl border border-glass-border;
+  }
+
+  /* Neon text effects */
+  .text-glow {
+    text-shadow: 0 0 10px hsl(var(--primary) / 0.8),
+      0 0 20px hsl(var(--primary) / 0.6),
+      0 0 30px hsl(var(--primary) / 0.4);
+  }
+
+  .text-glow-accent {
+    text-shadow: 0 0 10px hsl(var(--accent) / 0.8),
+      0 0 20px hsl(var(--accent) / 0.6);
+  }
+
+  /* HUD borders */
+  .hud-border {
+    @apply relative;
+  }
+
+  .hud-border::before,
+  .hud-border::after {
+    content: '';
+    @apply absolute w-4 h-4 border-primary;
+  }
+
+  .hud-border::before {
+    @apply top-0 left-0 border-t-2 border-l-2;
+  }
+
+  .hud-border::after {
+    @apply bottom-0 right-0 border-b-2 border-r-2;
+  }
+
+  /* Animated grid background */
+  .grid-bg {
+    background-image:
+      linear-gradient(hsl(var(--grid-color) / var(--grid-opacity)) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--grid-color) / var(--grid-opacity)) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: grid-move 20s linear infinite;
+  }
+
+  @keyframes grid-move {
+    0% {
+      background-position: 0 0;
+    }
+
+    100% {
+      background-position: 50px 50px;
+    }
+  }
+
+  /* Scan line effect */
+  .scanlines::after {
+    content: '';
+    @apply absolute inset-0 pointer-events-none;
+    background: repeating-linear-gradient(0deg,
+        transparent,
+        transparent 2px,
+        hsl(0 0% 0% / 0.03) 2px,
+        hsl(0 0% 0% / 0.03) 4px);
+  }
+
+  /* Glitch effect */
+  @keyframes glitch {
+
+    0%,
+    100% {
+      transform: translate(0);
+    }
+
+    20% {
+      transform: translate(-2px, 2px);
+    }
+
+    40% {
+      transform: translate(-2px, -2px);
+    }
+
+    60% {
+      transform: translate(2px, 2px);
+    }
+
+    80% {
+      transform: translate(2px, -2px);
+    }
+  }
+
+  .glitch:hover {
+    animation: glitch 0.3s ease-in-out;
+  }
+
+  /* Pulse glow */
+  @keyframes pulse-glow {
+
+    0%,
+    100% {
+      box-shadow: 0 0 5px hsl(var(--primary) / 0.5),
+        0 0 10px hsl(var(--primary) / 0.3);
+    }
+
+    50% {
+      box-shadow: 0 0 15px hsl(var(--primary) / 0.8),
+        0 0 30px hsl(var(--primary) / 0.5),
+        0 0 45px hsl(var(--primary) / 0.3);
+    }
+  }
+
+  .pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  /* Typing cursor */
+  @keyframes blink {
+
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0;
+    }
+  }
+
+  .cursor-blink::after {
+    content: '|';
+    @apply text-primary ml-1;
+    animation: blink 1s step-end infinite;
+  }
+
+  /* Floating animation */
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  /* Rotate animation */
+  @keyframes rotate-slow {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .rotate-slow {
+    animation: rotate-slow 30s linear infinite;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary) / 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary) / 0.8);
+}
+
+/* Selection */
+::selection {
+  background: hsl(var(--primary) / 0.3);
+  color: hsl(var(--foreground));
+}
