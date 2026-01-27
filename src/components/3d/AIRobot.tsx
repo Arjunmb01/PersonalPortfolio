@@ -21,7 +21,7 @@ const AIRobot = ({ mousePosition }: AIRobotProps) => {
     const time = state.clock.getElapsedTime();
 
     // Update target rotation based on mouse
-    targetRotation.current.x = mousePosition.y * 0.3;
+    targetRotation.current.x = -mousePosition.y * 0.3;
     targetRotation.current.y = mousePosition.x * 0.5;
 
     // Smooth head tracking

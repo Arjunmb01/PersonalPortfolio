@@ -6,6 +6,7 @@ import { Menu, X, Terminal, Github, Linkedin, FileDown } from 'lucide-react';
 const navLinks = [
   { path: '#home', label: 'HOME' },
   { path: '#about', label: 'ABOUT' },
+  { path: '#services', label: 'SERVICES' },
   { path: '#skills', label: 'SKILLS' },
   { path: '#projects', label: 'PROJECTS' },
   { path: '#experience', label: 'EXPERIENCE' },
@@ -75,7 +76,7 @@ const Navigation = () => {
             {/* Social Links */}
             <div className="hidden lg:flex items-center gap-4">
               <a
-                href="https://github.com"
+                href="https://github.com/Arjunmb01"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 rounded-lg border border-border bg-muted/50 flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-all"
@@ -83,7 +84,7 @@ const Navigation = () => {
                 <Github className="w-4 h-4" />
               </a>
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/arjun-mb/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 rounded-lg border border-border bg-muted/50 flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-all"
@@ -118,7 +119,7 @@ const Navigation = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden glass-strong border-b border-glass-border overflow-hidden"
+            className="lg:hidden fixed inset-x-0 top-[73px] bottom-0 glass-strong border-b border-glass-border overflow-y-auto"
           >
             <div className="container mx-auto px-6 py-6 space-y-4">
               {navLinks.map((link, index) => (
@@ -144,7 +145,7 @@ const Navigation = () => {
 
               <div className="flex items-center gap-4 pt-4 border-t border-border">
                 <a
-                  href="https://github.com"
+                  href="https://github.com/Arjunmb01"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 rounded-lg border border-border bg-muted/50 flex items-center justify-center text-muted-foreground"
@@ -152,7 +153,7 @@ const Navigation = () => {
                   <Github className="w-5 h-5" />
                 </a>
                 <a
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/in/arjun-mb/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 rounded-lg border border-border bg-muted/50 flex items-center justify-center text-muted-foreground"

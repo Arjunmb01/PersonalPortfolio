@@ -40,7 +40,7 @@ const Projects = () => {
             transition={{ delay: 0.1 }}
             className="mb-16"
           >
-            <HUDPanel title="projects_3d_viewer.exe" className="h-[550px]">
+            <HUDPanel title="projects_3d_viewer.exe" className="h-[350px] md:h-[550px]">
               <div className="h-full">
                 <ProjectsScene
                   projects={projects.map(p => ({ id: p.id, title: p.title }))}
@@ -145,7 +145,7 @@ const Projects = () => {
                 <h2 className="font-orbitron text-2xl font-bold text-foreground mb-8">
                   Other Projects
                 </h2>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {otherProjects.map((project, index) => (
                     <motion.div
                       key={project.id}

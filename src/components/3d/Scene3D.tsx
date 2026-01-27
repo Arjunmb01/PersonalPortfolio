@@ -29,8 +29,13 @@ const Scene3D = () => {
       {isInView && (
         <Canvas
           camera={{ position: [0, 0, 5], fov: 50 }}
-          gl={{ antialias: true, alpha: true }}
-          dpr={[1, 2]}
+          gl={{
+            antialias: true,
+            alpha: true,
+            powerPreference: "high-performance"
+          }}
+          dpr={[1, 1.5]}
+          performance={{ min: 0.5 }}
         >
           <Suspense fallback={null}>
             {/* Lighting */}

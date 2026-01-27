@@ -80,7 +80,7 @@ const Contact = () => {
 
   const socialLinks = [
     { icon: Github, label: 'GitHub', href: 'https://github.com/Arjunmb01', username: '@Arjunmb01' },
-    { icon: Linkedin, label: 'LinkedIn', href: 'https://linkedin.com/in/arjunmb01', username: '/in/arjunmb01' },
+    { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/arjun-mb/', username: '/in/arjun-mb' },
     { icon: Mail, label: 'Email', href: 'mailto:arjunmb01@gmail.com', username: 'arjunmb01@gmail.com' },
   ];
 
@@ -119,7 +119,7 @@ const Contact = () => {
               </div>
 
               {/* Terminal output */}
-              <div className="bg-background/50 p-4 h-32 overflow-y-auto font-mono text-sm">
+              <div className="bg-background/50 p-4 h-24 md:h-32 overflow-y-auto font-mono text-sm">
                 {terminalLines.map((line, index) => (
                   <motion.div
                     key={index}

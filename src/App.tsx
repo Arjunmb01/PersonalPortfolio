@@ -11,6 +11,7 @@ import Projects from "./pages/Projects";
 import Experience from "./pages/Experience";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import SmoothScroll from "./components/layout/SmoothScroll";
 
 const queryClient = new QueryClient();
 
@@ -32,9 +33,11 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
-        <AnimatedRoutes />
-      </BrowserRouter>
+      <SmoothScroll>
+        <BrowserRouter>
+          <AnimatedRoutes />
+        </BrowserRouter>
+      </SmoothScroll>
     </TooltipProvider>
   </QueryClientProvider>
 );

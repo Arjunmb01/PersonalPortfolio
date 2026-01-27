@@ -34,7 +34,12 @@ const ProjectsScene = ({ projects, onProjectClick }: ProjectsSceneProps) => {
   return (
     <div ref={containerRef} className="h-full w-full">
       {isInView && (
-        <Canvas camera={{ position: [0, 0, 7.5], fov: 45 }}>
+        <Canvas
+          camera={{ position: [0, 0, 7.5], fov: 45 }}
+          dpr={[1, 1.5]}
+          performance={{ min: 0.5 }}
+          gl={{ powerPreference: "high-performance" }}
+        >
           <Suspense fallback={null}>
             <ambientLight intensity={0.3} />
             <pointLight position={[10, 10, 10]} intensity={1} color="#00d4ff" />

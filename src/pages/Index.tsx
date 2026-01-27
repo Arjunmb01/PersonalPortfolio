@@ -11,6 +11,7 @@ import Skills from './Skills';
 import Projects from './Projects';
 import Experience from './Experience';
 import Contact from './Contact';
+import Services from './Services';
 import ScrollToTop from '@/components/ui/ScrollToTop';
 
 const Index = () => {
@@ -68,7 +69,7 @@ const Index = () => {
                     transition={{ duration: 0.6, delay: 0.1 }}
                     className="space-y-4"
                   >
-                    <h1 className="font-orbitron text-5xl md:text-7xl font-bold leading-tight">
+                    <h1 className="font-orbitron text-3xl sm:text-5xl md:text-7xl font-bold leading-tight">
                       <span className="text-foreground">I BUILD</span>
                       <br />
                       <GlitchText className="text-primary text-glow">
@@ -183,6 +184,7 @@ const Index = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.5 }}
+              viewport={{ once: true }}
               className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
             >
               <span className="font-mono text-xs text-muted-foreground tracking-wider">SCROLL</span>
@@ -197,30 +199,13 @@ const Index = () => {
 
           {/* Sections */}
           <About />
+          <Services />
           <Skills />
           <Projects />
           <Experience />
           <Contact />
         </main>
 
-        {/* Tech stack floating icons */}
-        <div className="fixed bottom-8 left-8 z-20 hidden lg:block">
-          <HUDPanel title="tech_stack.config" className="p-4">
-            <div className="flex gap-3">
-              {['M', 'E', 'R', 'N'].map((letter, index) => (
-                <motion.div
-                  key={letter}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1 + index * 0.1 }}
-                  className="w-10 h-10 rounded-lg bg-muted border border-border flex items-center justify-center font-orbitron text-lg font-bold text-primary"
-                >
-                  {letter}
-                </motion.div>
-              ))}
-            </div>
-          </HUDPanel>
-        </div>
 
         <ScrollToTop />
       </div>

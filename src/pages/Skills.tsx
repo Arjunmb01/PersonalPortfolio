@@ -141,7 +141,7 @@ const Skills = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 }}
-              className="h-[600px] relative"
+              className="h-[350px] md:h-[600px] relative"
             >
               <HUDPanel title="skills_visualizer.exe" className="h-full">
                 <div className="h-full w-full">
