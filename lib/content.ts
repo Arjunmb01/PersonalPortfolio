@@ -144,23 +144,14 @@ export const portfolioContent: PortfolioContent = {
       ],
     },
     {
-      role: "Frontend Web Development — Internship / Training",
-      company: "Internship & Training Program",
-      location: "Bangalore, India",
-      duration: "Aug 2024 – May 2026",
-      highlights: [
-        "Built and shipped a web app end-to-end, from prototype/wireframe to working product.",
-        "Practiced component-based architecture, state management, responsive UI, and REST API integration under mentorship.",
-      ],
-    },
-    {
-      role: "Full Stack Development Training — MERN/PERN Stack, Django + React.js",
+      role: "Full Stack Development Trainee / Intern",
       company: "Brototype (BroCamp)",
       location: "Kochi, India",
-      duration: "Completed 2024",
+      duration: "Aug 2024 – May 2026",
       highlights: [
-        "Intensive project-based development bootcamp specializing in full stack software engineering.",
-        "Focused on designing clean RESTful web services, advanced state management in React, relational database schemas, and microservice container deployment.",
+        "Built and shipped a web app end-to-end, from prototype/wireframe to working product under professional mentorship.",
+        "Practiced component-based architecture, global state management, responsive user interfaces, and REST API integration.",
+        "Completed intensive project-based software engineering training specializing in MERN/PERN stack and Python/Django + React.js, focusing on writing secure RESTful endpoints and containerized service deployments.",
       ],
     },
   ],
