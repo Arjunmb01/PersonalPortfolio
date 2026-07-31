@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowDown, Mail, ArrowUpRight } from "lucide-react";
+import { ArrowDown, Mail, ArrowUpRight, Download } from "lucide-react";
 import { portfolioContent } from "@/lib/content";
 
 export default function Hero() {
-  const { name, role, tagline, socials } = portfolioContent.personalInfo;
+  const { name, role, tagline, socials, resumeUrl } = portfolioContent.personalInfo;
   const shouldReduceMotion = useReducedMotion();
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
@@ -149,6 +149,13 @@ export default function Hero() {
               className="flex items-center gap-2 px-6 py-3.5 rounded-full bg-primary hover:bg-primary-hover text-white font-semibold transition-all shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 cursor-pointer duration-300"
             >
               Explore Work <ArrowDown className="w-4 h-4 animate-bounce" />
+            </a>
+            <a
+              href={resumeUrl}
+              download="Arjun_M_B_Resume.pdf"
+              className="flex items-center gap-2 px-6 py-3.5 rounded-full border border-zinc-300/60 dark:border-zinc-700/60 bg-white/40 dark:bg-zinc-950/40 hover:bg-zinc-100/80 dark:hover:bg-zinc-800/80 text-foreground font-semibold transition-all hover:scale-105 active:scale-95 cursor-pointer duration-300"
+            >
+              Download CV <Download className="w-4 h-4" />
             </a>
             <a
               href="#contact"

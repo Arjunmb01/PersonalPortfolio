@@ -41,6 +41,7 @@ export interface PortfolioContent {
       linkedin: string;
       liveSite: string;
     };
+    resumeUrl: string;
   };
   skillGroups: SkillGroup[];
   experiences: Experience[];
@@ -63,6 +64,7 @@ export const portfolioContent: PortfolioContent = {
       linkedin: "https://linkedin.com/in/arjun-mb",
       liveSite: "https://arjundev.vercel.app",
     },
+    resumeUrl: "/resume.pdf",
   },
   skillGroups: [
     {
@@ -221,5 +223,5 @@ export const portfolioContent: PortfolioContent = {
       duration: "Completed 2024",
     },
   ],
-  web3FormsAccessKey: "f4c44cf4-8db3-41d2-9999-532d3a1ee717",
+  web3FormsAccessKey: "9ddc0405-00ab-4217-bc38-9ba4034265ed",
 };
