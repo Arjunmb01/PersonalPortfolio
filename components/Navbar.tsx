@@ -1,76 +1,47 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 import { portfolioContent } from "@/lib/content";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
+  const pathname = usePathname();
 
   const navLinks = [
-    { name: "Home", href: "#home" },
-    { name: "About", href: "#about" },
-    { name: "Skills", href: "#skills" },
-    { name: "Experience", href: "#experience" },
-    { name: "Projects", href: "#projects" },
-    { name: "Contact", href: "#contact" },
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
+    { name: "Skills", href: "/skills" },
+    { name: "Experience", href: "/experience" },
+    { name: "Projects", href: "/projects" },
+    { name: "Contact", href: "/contact" },
   ];
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-
-      const scrollPosition = window.scrollY + 160;
-      const elements = navLinks.map(link => ({
-        id: link.href.slice(1),
-        offset: document.getElementById(link.href.slice(1))?.offsetTop || 0,
-        height: document.getElementById(link.href.slice(1))?.offsetHeight || 0,
-      }));
-
-      const current = elements.find(
-        el => scrollPosition >= el.offset && scrollPosition < el.offset + el.height
-      );
-
-      if (current) {
-        setActiveSection(current.id);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${
-        scrolled
-          ? "glass py-4 shadow-sm border-blueprint-grid"
-          : "bg-transparent py-6 border-transparent"
-      }`}
-    >
+    <header className="fixed top-0 left-0 right-0 z-50 border-b glass py-4 shadow-sm border-blueprint-grid">
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
         {/* Logo */}
-        <a
-          href="#home"
-          className="font-display font-black text-lg tracking-wider text-foreground hover:opacity-80 transition-opacity"
+        <Link
+          href="/"
+          className="font-display font-black text-lg tracking-wider text-foreground hover:opacity-85 transition-opacity"
         >
           ARJUN<span className="text-primary font-mono font-medium">.DEV</span>
-        </a>
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6">
           {navLinks.map((link, index) => {
-            const section = link.href.slice(1);
+            const isActive = pathname === link.href;
             return (
-              <a
+              <Link
                 key={link.name}
                 href={link.href}
                 className={`font-mono text-[11px] tracking-widest uppercase transition-all duration-200 hover:text-primary relative py-1 ${
-                  activeSection === section
-                    ? "text-primary"
+                  isActive
+                    ? "text-primary font-bold"
                     : "text-foreground/75"
                 }`}
               >
@@ -78,10 +49,10 @@ export default function Navbar() {
                   {String(index + 1).padStart(2, "0")}.
                 </span>
                 {link.name}
-                {activeSection === section && (
+                {isActive && (
                   <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
                 )}
-              </a>
+              </Link>
             );
           })}
           <div className="w-[1px] h-4 bg-blueprint-grid" />
@@ -113,15 +84,15 @@ export default function Navbar() {
       {isOpen && (
         <div className="md:hidden glass absolute top-full left-0 right-0 py-6 px-8 flex flex-col gap-4 shadow-lg border-t border-blueprint-grid">
           {navLinks.map((link, index) => {
-            const section = link.href.slice(1);
+            const isActive = pathname === link.href;
             return (
-              <a
+              <Link
                 key={link.name}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
                 className={`font-mono text-xs tracking-widest uppercase transition-colors hover:text-primary py-2 border-b border-blueprint-grid/30 ${
-                  activeSection === section
-                    ? "text-primary"
+                  isActive
+                    ? "text-primary font-bold"
                     : "text-foreground/80"
                 }`}
               >
@@ -129,7 +100,7 @@ export default function Navbar() {
                   {String(index + 1).padStart(2, "0")}.
                 </span>
                 {link.name}
-              </a>
+              </Link>
             );
           })}
           <a

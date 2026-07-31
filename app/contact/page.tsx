@@ -1,5 +1,5 @@
-import { redirect } from "next/navigation";
+import Contact from "@/components/Contact";
 
 export default function ContactPage() {
-  redirect("/#contact");
+  return <Contact />;
 }

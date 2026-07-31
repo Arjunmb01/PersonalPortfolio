@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Space_Grotesk, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -76,7 +78,11 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col font-sans antialiased selection:bg-primary/20">
         <ThemeProvider>
-          {children}
+          <Navbar />
+          <main className="flex-1 w-full flex flex-col">
+            {children}
+          </main>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
