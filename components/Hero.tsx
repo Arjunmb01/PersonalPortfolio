@@ -2,16 +2,47 @@
 
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowDown, Mail, ArrowUpRight, Download } from "lucide-react";
+import { ArrowDown, Mail, Download, Terminal as TerminalIcon } from "lucide-react";
 import { portfolioContent } from "@/lib/content";
 
 export default function Hero() {
-  const { name, role, tagline, socials, resumeUrl } = portfolioContent.personalInfo;
+  const { name, role, tagline, resumeUrl } = portfolioContent.personalInfo;
   const shouldReduceMotion = useReducedMotion();
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [consoleOutput, setConsoleOutput] = useState<string[]>([]);
+  const [booting, setBooting] = useState(true);
+
+  // Terminal boot lines
+  const bootLines = [
+    "LOG // INITIALIZING BLUEPRINT SYSTEM...",
+    "LOG // LOADING CONFIG: fullstack_developer_profile.json",
+    "LOG // RESOLVING RUNTIMES: React 19, Next.js 16, GSAP, Docker...",
+    "LOG // COMPILING SYSTEM ASSETS...",
+    "LOG // STATUS: SYSTEM READY. RENDERING CONSOLE LAYOUT."
+  ];
 
   useEffect(() => {
-    if (shouldReduceMotion) return;
+    if (shouldReduceMotion) {
+      setBooting(false);
+      return;
+    }
+
+    let currentLine = 0;
+    const interval = setInterval(() => {
+      if (currentLine < bootLines.length) {
+        setConsoleOutput((prev) => [...prev, bootLines[currentLine]]);
+        currentLine++;
+      } else {
+        clearInterval(interval);
+        setTimeout(() => setBooting(false), 500);
+      }
+    }, 350);
+
+    return () => clearInterval(interval);
+  }, [shouldReduceMotion]);
+
+  useEffect(() => {
+    if (shouldReduceMotion || booting) return;
 
     const handleMouseMove = (e: MouseEvent) => {
       setMousePos({ x: e.clientX, y: e.clientY });
@@ -19,15 +50,14 @@ export default function Hero() {
 
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [shouldReduceMotion]);
+  }, [shouldReduceMotion, booting]);
 
+  // Framer motion variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.08,
-      },
+      transition: { staggerChildren: 0.08 },
     },
   };
 
@@ -36,10 +66,7 @@ export default function Hero() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        duration: 0.6,
-        ease: [0.16, 1, 0.3, 1] as const,
-      },
+      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
     },
   };
 
@@ -55,19 +82,26 @@ export default function Hero() {
     },
   };
 
-  const nameLetterVariants = {
-    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 15 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.4,
-        ease: "easeOut" as const,
-      },
-    },
-  };
-
   const nameLetters = name.split("");
+
+  if (booting && !shouldReduceMotion) {
+    return (
+      <div className="min-h-screen bg-[#0b0e14] flex items-center justify-center p-6 font-mono text-[11px] sm:text-xs text-primary">
+        <div className="max-w-xl w-full flex flex-col gap-2">
+          {consoleOutput.map((line, index) => (
+            <div key={index} className="flex gap-2">
+              <span className="text-primary/45">&gt;&gt;</span>
+              <span className={index === bootLines.length - 1 ? "text-accent font-bold" : ""}>{line}</span>
+            </div>
+          ))}
+          <div className="flex gap-2 items-center">
+            <span className="text-primary/45">&gt;&gt;</span>
+            <span className="w-1.5 h-4 bg-primary console-cursor" />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <section
@@ -77,124 +111,116 @@ export default function Hero() {
       {/* Background mouse glow spots */}
       {!shouldReduceMotion && (
         <div
-          className="glow-spot absolute opacity-45 dark:opacity-35 pointer-events-none transition-transform"
+          className="glow-spot absolute opacity-45 pointer-events-none transition-transform"
           style={{
             left: 0,
             top: 0,
-            transform: `translate3d(${mousePos.x - 200}px, ${mousePos.y - 200}px, 0)`,
+            transform: `translate3d(${mousePos.x - 225}px, ${mousePos.y - 225}px, 0)`,
             willChange: "transform",
           }}
         />
       )}
 
       {/* Main Container */}
-      <div className="max-w-4xl mx-auto text-center z-10">
+      <div className="max-w-5xl mx-auto w-full z-10">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="flex flex-col items-center gap-6"
+          className="flex flex-col gap-8 md:gap-10"
         >
-          {/* Availability Badge */}
+          {/* Engineering Metadata Header */}
           <motion.div
             variants={itemVariants}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold border border-primary/20 bg-primary/5 text-primary dark:text-accent dark:border-accent/20 dark:bg-accent/5"
+            className="flex flex-wrap items-center justify-between border-b border-blueprint-grid pb-3 font-mono text-[10px] sm:text-xs text-foreground/45"
           >
-            <span className="w-2 h-2 rounded-full bg-primary dark:bg-accent animate-pulse" />
-            Available for Full Stack Opportunities
+            <div className="flex items-center gap-2">
+              <TerminalIcon className="w-3.5 h-3.5 text-primary" />
+              <span>SYS.STATUS // ONLINE</span>
+            </div>
+            <div>
+              <span>LOC // 12.9716° N, 77.5946° E</span>
+            </div>
           </motion.div>
 
-          {/* Headline with Letter Animation */}
-          <motion.h1
-            variants={titleWordVariants}
-            className="font-display font-black text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-foreground leading-[1.05]"
-          >
-            Hi, I&apos;m{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary animate-gradient font-extrabold whitespace-nowrap inline-flex">
-              {nameLetters.map((char, index) => (
-                <motion.span
-                  key={index}
-                  variants={nameLetterVariants}
-                  className="inline-block hover:scale-110 hover:text-accent transition-transform duration-200 cursor-default"
-                >
-                  {char === " " ? "\u00A0" : char}
-                </motion.span>
-              ))}
-            </span>
-          </motion.h1>
+          {/* Staggered Main Title */}
+          <div className="flex flex-col gap-4">
+            <motion.div
+              variants={itemVariants}
+              className="font-mono text-[10px] sm:text-xs uppercase tracking-widest text-primary bg-primary/5 border border-primary/25 px-3 py-1 self-start rounded-none"
+            >
+              01 // Profile Initialization
+            </motion.div>
+            <motion.h1
+              variants={titleWordVariants}
+              className="font-display font-black text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-foreground leading-[1.05]"
+            >
+              Hi, I&apos;m{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary animate-gradient font-black inline-flex">
+                {nameLetters.map((char, index) => (
+                  <motion.span
+                    key={index}
+                    whileHover={{ scale: 1.18, y: -6 }}
+                    transition={{ type: "spring", stiffness: 450, damping: 8 }}
+                    className="inline-block hover:text-accent cursor-default"
+                  >
+                    {char === " " ? "\u00A0" : char}
+                  </motion.span>
+                ))}
+              </span>
+            </motion.h1>
+          </div>
 
-          {/* Subtitle / Role */}
-          <motion.p
-            variants={itemVariants}
-            className="font-display text-lg sm:text-2xl md:text-3xl font-bold tracking-tight text-foreground/85"
-          >
-            {role}
-          </motion.p>
+          {/* Subtitle / Role & Details block */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            <motion.div variants={itemVariants} className="lg:col-span-8 flex flex-col gap-4">
+              <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-foreground/90">
+                {role}
+              </h2>
+              <p className="max-w-2xl text-base sm:text-lg text-foreground/60 leading-relaxed font-sans">
+                {tagline}
+              </p>
+            </motion.div>
 
-          {/* Tagline */}
-          <motion.p
-            variants={itemVariants}
-            className="max-w-2xl text-base sm:text-lg md:text-xl text-foreground/60 leading-relaxed font-sans"
-          >
-            {tagline}
-          </motion.p>
+            {/* Micro console readout */}
+            <motion.div
+              variants={itemVariants}
+              className="lg:col-span-4 border border-blueprint-grid bg-blueprint-grid/10 p-4 font-mono text-[10px] leading-relaxed text-foreground/50 space-y-1"
+            >
+              <div className="text-primary font-bold mb-1">// SYSTEM DATA READOUT</div>
+              <div>ENV_STRETCH: responsive_blueprint</div>
+              <div>DEPLOY_PIPELINE: aws_docker_compose</div>
+              <div>ANIMATION_CONTROLLER: gsap_framer_motion</div>
+              <div>SERVAL_PORT: localhost:3000</div>
+            </motion.div>
+          </div>
 
           {/* CTAs */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-wrap items-center justify-center gap-4 mt-4"
+            className="flex flex-wrap items-center gap-4 mt-2"
           >
             <a
               href="#projects"
-              className="flex items-center gap-2 px-6 py-3.5 rounded-full bg-primary hover:bg-primary-hover text-white font-semibold transition-all shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 cursor-pointer duration-300"
+              className="flex items-center gap-2 px-6 py-3.5 bg-primary hover:bg-primary/95 text-background font-mono text-[11px] tracking-wider uppercase transition-all hover:scale-[1.02] active:scale-95 cursor-pointer duration-300 border border-primary font-bold"
             >
-              Explore Work <ArrowDown className="w-4 h-4 animate-bounce" />
+              Explore Projects <ArrowDown className="w-4 h-4" />
             </a>
             <a
               href={resumeUrl}
               download="Arjun_M_B_Resume.pdf"
-              className="flex items-center gap-2 px-6 py-3.5 rounded-full border border-zinc-300/60 dark:border-zinc-700/60 bg-white/40 dark:bg-zinc-950/40 hover:bg-zinc-100/80 dark:hover:bg-zinc-800/80 text-foreground font-semibold transition-all hover:scale-105 active:scale-95 cursor-pointer duration-300"
+              className="flex items-center gap-2 px-6 py-3.5 border border-primary/20 hover:border-primary bg-primary/5 hover:bg-primary/10 text-foreground font-mono text-[11px] tracking-wider uppercase transition-all hover:scale-[1.02] active:scale-95 cursor-pointer duration-300"
             >
               Download CV <Download className="w-4 h-4" />
             </a>
             <a
               href="#contact"
-              className="flex items-center gap-2 px-6 py-3.5 rounded-full border border-zinc-300/60 dark:border-zinc-700/60 bg-white/40 dark:bg-zinc-950/40 hover:bg-zinc-100/80 dark:hover:bg-zinc-800/80 text-foreground font-semibold transition-all hover:scale-105 active:scale-95 cursor-pointer duration-300"
+              className="flex items-center gap-2 px-6 py-3.5 border border-primary/20 hover:border-primary bg-primary/5 hover:bg-primary/10 text-foreground font-mono text-[11px] tracking-wider uppercase transition-all hover:scale-[1.02] active:scale-95 cursor-pointer duration-300"
             >
               Get in Touch <Mail className="w-4 h-4" />
             </a>
           </motion.div>
-
-          {/* Social Links */}
-          <motion.div
-            variants={itemVariants}
-            className="flex items-center gap-6 mt-8"
-          >
-            <a
-              href={socials.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-foreground/50 hover:text-primary transition-all duration-300 flex items-center gap-1 text-sm font-semibold hover:-translate-y-0.5 cursor-pointer"
-            >
-              GitHub <ArrowUpRight className="w-3.5 h-3.5" />
-            </a>
-            <span className="w-1.5 h-1.5 rounded-full bg-zinc-300 dark:bg-zinc-700" />
-            <a
-              href={socials.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-foreground/50 hover:text-accent transition-all duration-300 flex items-center gap-1 text-sm font-semibold hover:-translate-y-0.5 cursor-pointer"
-            >
-              LinkedIn <ArrowUpRight className="w-3.5 h-3.5" />
-            </a>
-          </motion.div>
         </motion.div>
-      </div>
-
-      {/* Floating scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-foreground/30 animate-pulse">
-        <span className="text-[10px] uppercase tracking-widest font-black">Scroll</span>
-        <ArrowDown className="w-3 h-3" />
       </div>
     </section>
   );

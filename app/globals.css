@@ -4,36 +4,40 @@
 
 @theme {
   --font-display: var(--font-space-grotesk), system-ui, sans-serif;
-  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-sans: var(--font-plus-jakarta), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), monospace;
   
-  --color-primary: #6366f1;
-  --color-accent: #06b6d4;
-  --color-primary-hover: #4f46e5;
-  --color-accent-hover: #0891b2;
+  --color-primary: var(--primary-color);
+  --color-accent: var(--accent-color);
+  --color-blueprint-grid: var(--grid-color);
 }
 
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
-  --card-bg: rgba(255, 255, 255, 0.7);
-  --card-border: rgba(226, 232, 240, 0.8);
-  --glass-bg: rgba(255, 255, 255, 0.75);
-  --glass-border: rgba(226, 232, 240, 0.8);
-  --selection-bg: rgba(99, 102, 241, 0.15);
-  --grid-color: rgba(99, 102, 241, 0.04);
-  --glow-color: rgba(99, 102, 241, 0.1);
+  --background: #fafafb;
+  --foreground: #181d24;
+  --primary-color: #007a8a;
+  --accent-color: #e04a00;
+  --grid-color: rgba(0, 122, 138, 0.07);
+  --card-bg: rgba(243, 244, 246, 0.7);
+  --card-border: rgba(0, 122, 138, 0.15);
+  --glass-bg: rgba(250, 250, 251, 0.8);
+  --glass-border: rgba(0, 122, 138, 0.15);
+  --selection-bg: rgba(0, 122, 138, 0.15);
+  --glow-color: rgba(0, 122, 138, 0.08);
 }
 
 .dark {
-  --background: #030014;
-  --foreground: #f4f4f5;
-  --card-bg: rgba(10, 10, 18, 0.6);
-  --card-border: rgba(39, 39, 42, 0.5);
-  --glass-bg: rgba(3, 0, 20, 0.75);
-  --glass-border: rgba(39, 39, 42, 0.4);
-  --selection-bg: rgba(6, 182, 212, 0.25);
-  --grid-color: rgba(6, 182, 212, 0.03);
-  --glow-color: rgba(6, 182, 212, 0.08);
+  --background: #0b0e14;
+  --foreground: #e2e8f0;
+  --primary-color: #00f0ff;
+  --accent-color: #ff5c00;
+  --grid-color: rgba(0, 240, 255, 0.04);
+  --card-bg: rgba(19, 26, 38, 0.4);
+  --card-border: rgba(0, 240, 255, 0.12);
+  --glass-bg: rgba(11, 14, 20, 0.85);
+  --glass-border: rgba(0, 240, 255, 0.15);
+  --selection-bg: rgba(0, 240, 255, 0.2);
+  --glow-color: rgba(0, 240, 255, 0.05);
 }
 
 * {
@@ -47,45 +51,32 @@ html {
 body {
   background-color: var(--background);
   color: var(--foreground);
-  transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color 0.4s cubic-bezier(0.25, 1, 0.5, 1), color 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   overflow-x: hidden;
 }
 
+/* Custom Selection */
 ::selection {
   background-color: var(--selection-bg);
 }
 
-/* Glassmorphism utility classes */
-.glass {
-  background-color: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
+/* Fine-line blueprint grid background pattern */
+.grid-bg {
+  background-image: 
+    linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+  background-size: 32px 32px;
 }
 
-.card-glass {
-  background-color: var(--card-bg);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--card-border);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+/* Blueprint Line */
+.blueprint-line {
+  border-color: var(--grid-color);
 }
 
-.card-glass:hover {
-  border-color: rgba(99, 102, 241, 0.4);
-  box-shadow: 0 12px 30px rgba(99, 102, 241, 0.06);
-  transform: translateY(-4px);
-}
-
-.dark .card-glass:hover {
-  border-color: rgba(6, 182, 212, 0.4);
-  box-shadow: 0 12px 30px rgba(6, 182, 212, 0.08);
-}
-
-/* Custom Scrollbar */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -93,34 +84,86 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(156, 163, 175, 0.2);
-  border-radius: 4px;
+  background: var(--grid-color);
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(156, 163, 175, 0.4);
+  background: var(--primary-color);
 }
 
-/* Grid background pattern */
-.grid-bg {
-  background-image: 
-    linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
-  background-size: 50px 50px;
+/* Glassmorphism & Blueprint Card utilities */
+.glass {
+  background-color: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+}
+
+.card-blueprint {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-blueprint::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 4px;
+  border-top: 1px solid var(--primary-color);
+  border-left: 1px solid var(--primary-color);
+}
+
+.card-blueprint::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 4px;
+  height: 4px;
+  border-bottom: 1px solid var(--primary-color);
+  border-right: 1px solid var(--primary-color);
+}
+
+.card-blueprint:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.08);
+  transform: translateY(-2px);
+}
+
+.dark .card-blueprint:hover {
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.12);
 }
 
 /* Glow effects */
 .glow-spot {
   position: absolute;
-  width: 400px;
-  height: 400px;
+  width: 450px;
+  height: 450px;
   border-radius: 50%;
   background: radial-gradient(circle, var(--glow-color) 0%, transparent 70%);
   pointer-events: none;
-  filter: blur(40px);
+  filter: blur(50px);
 }
 
-/* Timeline specific styles */
-.timeline-line {
-  background: linear-gradient(to bottom, transparent, var(--color-primary) 10%, var(--color-accent) 90%, transparent);
+/* Compiler load animation style */
+@keyframes cursor-blink {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+.console-cursor {
+  animation: cursor-blink 1s step-end infinite;
+}
+
+/* Stacking cards styles */
+.stack-card {
+  position: sticky;
+  top: 100px;
+  transform-origin: center top;
 }
