@@ -41,7 +41,7 @@ export function initialFX() {
     }
   );
 
-  let TextProps = { type: "chars,lines", linesClass: "split-h2" };
+  let TextProps = { type: "chars" };
 
   var landingText2 = new TextSplitter(".landing-h2-info", TextProps);
   gsap.fromTo(
@@ -89,56 +89,24 @@ export function initialFX() {
 }
 
 function LoopText(Text1: TextSplitter, Text2: TextSplitter) {
-  var tl = gsap.timeline({ repeat: -1, repeatDelay: 1 });
-  const delay = 4;
-  const delay2 = delay * 2 + 1;
+  // Set initial states synchronously
+  gsap.set(Text2.chars, { opacity: 0, y: 80 });
+  gsap.set(Text1.chars, { opacity: 1, y: 0 });
 
-  tl.fromTo(
-    Text2.chars,
-    { opacity: 0, y: 80 },
-    {
-      opacity: 1,
-      duration: 1.2,
-      ease: "power3.inOut",
-      y: 0,
-      stagger: 0.1,
-      delay: delay,
-    },
-    0
-  )
-    .fromTo(
-      Text1.chars,
-      { y: 80 },
-      {
-        duration: 1.2,
-        ease: "power3.inOut",
-        y: 0,
-        stagger: 0.1,
-        delay: delay2,
-      },
-      1
+  var tl = gsap.timeline({ repeat: -1 });
+  const duration = 1.2;
+  const ease = "power3.inOut";
+
+  tl.to(Text1.chars, { y: -80, opacity: 0, duration, ease, stagger: 0.03 }, "+=3.0")
+    .fromTo(Text2.chars,
+      { y: 80, opacity: 0 },
+      { y: 0, opacity: 1, duration, ease, stagger: 0.03 },
+      "-=0.8"
     )
-    .fromTo(
-      Text1.chars,
-      { y: 0 },
-      {
-        y: -80,
-        duration: 1.2,
-        ease: "power3.inOut",
-        stagger: 0.1,
-        delay: delay,
-      },
-      0
-    )
-    .to(
-      Text2.chars,
-      {
-        y: -80,
-        duration: 1.2,
-        ease: "power3.inOut",
-        stagger: 0.1,
-        delay: delay2,
-      },
-      1
+    .to(Text2.chars, { y: -80, opacity: 0, duration, ease, stagger: 0.03 }, "+=3.0")
+    .fromTo(Text1.chars,
+      { y: 80, opacity: 0 },
+      { y: 0, opacity: 1, duration, ease, stagger: 0.03 },
+      "-=0.8"
     );
 }
