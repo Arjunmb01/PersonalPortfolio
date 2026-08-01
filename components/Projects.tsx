@@ -122,11 +122,11 @@ export default function Projects() {
               className="flex flex-col md:block gap-6 md:gap-0 w-full h-full"
             >
               {projects.map((project, index) => (
-                <div
-                  key={project.id}
-                  className="w-full md:absolute md:inset-x-0 md:top-0 md:h-[420px] card-blueprint p-6 md:p-8 flex flex-col justify-between gap-6 group rounded-none"
-                  style={{ zIndex: index + 1 }}
-                >
+              <div
+                key={project.id}
+                className="w-full relative md:absolute md:inset-x-0 md:top-0 md:h-[420px] card-blueprint p-6 md:p-8 flex flex-col justify-between gap-6 group rounded-none"
+                style={{ zIndex: index + 1 }}
+              >
                   <div className="flex flex-col gap-4">
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex flex-col gap-1">
