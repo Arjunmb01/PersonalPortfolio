@@ -201,7 +201,7 @@ export default function Hero() {
             className="flex flex-wrap items-center gap-4 mt-2"
           >
             <a
-              href="/projects"
+              href="#projects"
               className="flex items-center gap-2 px-6 py-3.5 bg-primary hover:bg-primary/95 text-background font-mono text-[11px] tracking-wider uppercase transition-all hover:scale-[1.02] active:scale-95 cursor-pointer duration-300 border border-primary font-bold"
             >
               Explore Projects <ArrowDown className="w-4 h-4" />
@@ -214,7 +214,7 @@ export default function Hero() {
               Download CV <Download className="w-4 h-4" />
             </a>
             <a
-              href="/contact"
+              href="#contact"
               className="flex items-center gap-2 px-6 py-3.5 border border-primary/20 hover:border-primary bg-primary/5 hover:bg-primary/10 text-foreground font-mono text-[11px] tracking-wider uppercase transition-all hover:scale-[1.02] active:scale-95 cursor-pointer duration-300"
             >
               Get in Touch <Mail className="w-4 h-4" />

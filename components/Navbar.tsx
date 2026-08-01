@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Menu, X, ArrowUpRight } from "lucide-react";
@@ -9,16 +9,55 @@ import { portfolioContent } from "@/lib/content";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
   const pathname = usePathname();
 
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Skills", href: "/skills" },
-    { name: "Experience", href: "/experience" },
-    { name: "Projects", href: "/projects" },
-    { name: "Contact", href: "/contact" },
+    { name: "About", href: "/#about" },
+    { name: "Skills", href: "/#skills" },
+    { name: "Experience", href: "/#experience" },
+    { name: "Projects", href: "/#projects" },
+    { name: "Contact", href: "/#contact" },
   ];
+
+  useEffect(() => {
+    if (pathname !== "/") {
+      setActiveSection("");
+      return;
+    }
+
+    const sections = ["about", "skills", "experience", "projects", "contact"];
+    const observers = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.2, rootMargin: "-20% 0px -50% 0px" }
+    );
+
+    // Observe each section
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observers.observe(el);
+    });
+
+    // Handle scroll to top (home active)
+    const handleScroll = () => {
+      if (window.scrollY < 100) {
+        setActiveSection("");
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      observers.disconnect();
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [pathname]);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b glass py-4 shadow-sm border-blueprint-grid">
@@ -34,7 +73,10 @@ export default function Navbar() {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6">
           {navLinks.map((link, index) => {
-            const isActive = pathname === link.href;
+            const isActive =
+              pathname === "/"
+                ? (link.href === "/" && !activeSection) || link.href === `/#${activeSection}`
+                : pathname === link.href || pathname === link.href.replace("/#", "/");
             return (
               <Link
                 key={link.name}
@@ -82,9 +124,12 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       {isOpen && (
-        <div className="md:hidden glass absolute top-full left-0 right-0 py-6 px-8 flex flex-col gap-4 shadow-lg border-t border-blueprint-grid">
+        <div className="md:hidden glass absolute top-full left-0 right-0 py-6 px-8 flex flex-col gap-4 shadow-lg border-t border-blueprint-grid/30">
           {navLinks.map((link, index) => {
-            const isActive = pathname === link.href;
+            const isActive =
+              pathname === "/"
+                ? (link.href === "/" && !activeSection) || link.href === `/#${activeSection}`
+                : pathname === link.href || pathname === link.href.replace("/#", "/");
             return (
               <Link
                 key={link.name}
