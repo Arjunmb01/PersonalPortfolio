@@ -368,11 +368,11 @@ const Play = () => {
           <div className="player-bar opponent-bar">
             <div className="player-info">
               <div className="player-avatar">
-                <img src="/images/mypic.jpeg" alt="Redoyanul" />
+                <img src="/images/arjun_profile.png" alt="Arjun" />
               </div>
               <div className="player-details">
-                <span className="player-name">Redoyanul</span>
-                <span className="player-rating">{engineThinking ? '🤔 Thinking...' : 'ELO 3640'}</span>
+                <span className="player-name">Arjun</span>
+                <span className="player-rating">{engineThinking ? '🤔 Thinking...' : 'ELO 2200'}</span>
               </div>
             </div>
             <div className="captured-pieces">
