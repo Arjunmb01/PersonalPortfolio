@@ -93,3 +93,15 @@ a {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(194, 164, 255, 0.5);
 }
+
+/* ---- Text Splitting Reveal Masks ---- */
+.split-line {
+  overflow: hidden;
+}
+
+.split-h2 {
+  overflow: hidden;
+  display: flex;
+  white-space: nowrap;
+  flex-wrap: nowrap;
+}

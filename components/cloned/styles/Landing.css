@@ -12,13 +12,13 @@
   .landing-section,
   .landing-container {
     height: auto !important;
-    min-height: 100vh;
+    min-height: auto;
     max-width: 100vw;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     padding: 0 15px;
-    padding-bottom: 40px;
+    padding-bottom: 20px;
   }
 
   /* Fix spacing between name and subtitle */
@@ -70,7 +70,7 @@
     /* Space between name and subtitles */
     z-index: 10;
     background: transparent;
-    padding-bottom: 50px;
+    padding-bottom: 20px;
     /* Add bottom padding for scroll space */
     display: flex;
     flex-direction: column;
@@ -506,7 +506,7 @@ h2.landing-info-h2 {
     text-align: left;
     transform: translate(0%, -50%);
     right: auto;
-    left: 66%;
+    left: 62%;
   }
 }
 
@@ -525,7 +525,7 @@ h2.landing-info-h2 {
     text-align: left;
     transform: translate(0%, -50%);
     right: auto;
-    left: 70%;
+    left: 64%;
   }
 }
 

@@ -3,6 +3,13 @@ import gsap from "gsap";
 import { lenis } from "../Navbar";
 
 export function initialFX() {
+  const checkEl = document.querySelector(".landing-info h3");
+  if (!checkEl) {
+    // If elements are not painted in the DOM yet, retry in 100ms
+    setTimeout(initialFX, 100);
+    return;
+  }
+
   document.body.style.overflowY = "auto";
   if (lenis) {
     lenis.start();
