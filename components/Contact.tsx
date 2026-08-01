@@ -12,6 +12,7 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [submitLogs, setSubmitLogs] = useState<string[]>([]);
 
   const validate = () => {
     const tempErrors: typeof errors = {};
@@ -27,14 +28,25 @@ export default function Contact() {
     return Object.keys(tempErrors).length === 0;
   };
 
+  const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
     setIsSubmitting(true);
     setErrorMsg("");
+    setSubmitLogs([]);
+    setSubmitted(false);
 
     try {
+      setSubmitLogs((prev) => [...prev, "NETW // CONNECTING TO SERVER ENDPOINT..."]);
+      await delay(400);
+      setSubmitLogs((prev) => [...prev, "SEC // PACKAGING METADATA PAYLOAD..."]);
+      await delay(300);
+      setSubmitLogs((prev) => [...prev, "SYS // ESTABLISHING COMMUNICATIONS ENVELOPE..."]);
+      await delay(200);
+
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: {
@@ -52,13 +64,19 @@ export default function Contact() {
 
       const result = await response.json();
       if (result.success) {
+        setSubmitLogs((prev) => [...prev, "SYS // PACKET DISPATCHED SUCCESSFULLY. CODE 200."]);
         setSubmitted(true);
         setFormData({ name: "", email: "", message: "" });
-        setTimeout(() => setSubmitted(false), 6000);
+        setTimeout(() => {
+          setSubmitted(false);
+          setSubmitLogs([]);
+        }, 8000);
       } else {
+        setSubmitLogs((prev) => [...prev, "ERR // SERVER REJECTED PAYLOAD."]);
         setErrorMsg(result.message || "Failed to submit message. Please check your access key.");
       }
     } catch (err) {
+      setSubmitLogs((prev) => [...prev, "ERR // ENVELOPE TRANSMISSION TIMED OUT."]);
       setErrorMsg("Failed to connect to the form service. Please check your network connection.");
     } finally {
       setIsSubmitting(false);
@@ -179,6 +197,23 @@ export default function Contact() {
                 </>
               )}
             </button>
+
+            {submitLogs.length > 0 && (
+              <div className="border border-blueprint-grid bg-blueprint-grid/10 p-4 font-mono text-[10px] leading-relaxed text-accent mt-2 space-y-1 select-none">
+                {submitLogs.map((log, index) => (
+                  <div key={index} className="flex gap-2">
+                    <span className="text-accent/40">&gt;&gt;</span>
+                    <span>{log}</span>
+                  </div>
+                ))}
+                {isSubmitting && (
+                  <div className="flex gap-2 items-center">
+                    <span className="text-accent/40">&gt;&gt;</span>
+                    <span className="w-1.5 h-3.5 bg-accent console-cursor" />
+                  </div>
+                )}
+              </div>
+            )}
 
             {submitted && (
               <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-500 text-xs font-semibold text-center flex items-center justify-center gap-2 animate-fade-in">

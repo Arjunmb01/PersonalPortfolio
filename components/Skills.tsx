@@ -47,6 +47,7 @@ export default function Skills() {
                 {group.skills.map((skill) => (
                   <span
                     key={skill}
+                    data-cursor={`SKILL // ${skill.toUpperCase()}`}
                     className="font-mono text-[11px] tracking-wider px-3.5 py-2 border border-blueprint-grid hover:border-primary/50 hover:text-primary transition-all duration-300 bg-blueprint-grid/5 text-foreground/75 cursor-default"
                   >
                     {skill}

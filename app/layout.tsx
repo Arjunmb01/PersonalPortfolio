@@ -4,6 +4,8 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import LenisProvider from "@/components/LenisProvider";
+import DiagnosticCursor from "@/components/DiagnosticCursor";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -78,11 +80,15 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col font-sans antialiased selection:bg-primary/20">
         <ThemeProvider>
-          <Navbar />
-          <main className="flex-1 w-full flex flex-col">
-            {children}
-          </main>
-          <Footer />
+          <LenisProvider>
+            <Navbar />
+            <main className="flex-1 w-full flex flex-col">
+              {children}
+            </main>
+            <Footer />
+            <DiagnosticCursor />
+            <div className="scanlines animate-fade-in" />
+          </LenisProvider>
         </ThemeProvider>
       </body>
     </html>

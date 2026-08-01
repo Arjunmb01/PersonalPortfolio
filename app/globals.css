@@ -166,3 +166,152 @@ body {
   top: 100px;
   transform-origin: center top;
 }
+
+/* Lenis smooth scrolling rules */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis-stopped {
+  overflow: hidden;
+}
+.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Diagnostic Custom Cursor Styles */
+.custom-cursor {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--primary-color);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+  transition: width 0.15s cubic-bezier(0.25, 1, 0.5, 1), height 0.15s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.15s ease, background-color 0.15s ease;
+  display: none;
+}
+@media (pointer: fine) {
+  .custom-cursor {
+    display: block;
+  }
+}
+.custom-cursor::after {
+  content: '';
+  width: 4px;
+  height: 4px;
+  background-color: var(--accent-color);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease;
+}
+.custom-cursor-active {
+  width: 40px;
+  height: 40px;
+  border-color: var(--accent-color);
+  border-width: 1.5px;
+  background-color: rgba(224, 74, 0, 0.05);
+}
+.custom-cursor-active::after {
+  transform: translate(-50%, -50%) scale(1.5);
+}
+.custom-cursor-text {
+  position: absolute;
+  top: 24px;
+  left: 12px;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: var(--primary-color);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0.65;
+  letter-spacing: 0.05em;
+  background-color: rgba(11, 14, 20, 0.65);
+  padding: 1px 4px;
+  border: 1px dashed var(--card-border);
+}
+
+/* SVG Connector Cable Styles */
+.connector-cable {
+  stroke: var(--primary-color);
+  stroke-width: 1.5;
+  fill: none;
+  stroke-dasharray: 8 6;
+  opacity: 0.2;
+  transition: opacity 0.4s ease, stroke 0.4s ease;
+}
+.connector-cable-active {
+  stroke: var(--accent-color);
+  opacity: 0.5;
+}
+
+/* CRT Scanlines Overlay */
+.scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.15) 50%
+  );
+  background-size: 100% 4px;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0.12;
+}
+
+/* Glitch Text Animations */
+@keyframes glitch-anim-1 {
+  0% { clip-path: inset(20% 0 50% 0); }
+  20% { clip-path: inset(80% 0 5% 0); }
+  40% { clip-path: inset(10% 0 75% 0); }
+  60% { clip-path: inset(45% 0 10% 0); }
+  80% { clip-path: inset(5% 0 85% 0); }
+  100% { clip-path: inset(30% 0 25% 0); }
+}
+@keyframes glitch-anim-2 {
+  0% { clip-path: inset(50% 0 20% 0); }
+  20% { clip-path: inset(15% 0 70% 0); }
+  40% { clip-path: inset(85% 0 5% 0); }
+  60% { clip-path: inset(10% 0 80% 0); }
+  80% { clip-path: inset(70% 0 15% 0); }
+  100% { clip-path: inset(20% 0 45% 0); }
+}
+
+.glitch-text {
+  position: relative;
+}
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  pointer-events: none;
+}
+.glitch-text:hover::before {
+  left: 2px;
+  text-shadow: -1px 0 rgba(0, 240, 255, 0.7);
+  animation: glitch-anim-1 2s infinite linear alternate-reverse;
+}
+.glitch-text:hover::after {
+  left: -2px;
+  text-shadow: 1px 1px rgba(255, 92, 0, 0.7);
+  animation: glitch-anim-2 2s infinite linear alternate-reverse;
+}
+
