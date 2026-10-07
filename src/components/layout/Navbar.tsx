@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { NAV_LINKS } from '../../lib/constants'
 import { X, Menu } from 'lucide-react'
+import Logo from '../ui/Logo'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -46,11 +47,10 @@ export default function Navbar() {
           {/* Logo */}
           <a
             href="#hero"
-            className="font-serif-italic text-2xl text-paper tracking-tight hover:text-accent transition-colors duration-300 flex items-center gap-2"
             aria-label="Arjun M B — Home"
+            className="focus:outline-none"
           >
-            <span>AMB</span>
-            <span className="text-[11px] font-sans text-mist tracking-widest uppercase hidden sm:inline">Arjun M B</span>
+            <Logo size={34} />
           </a>
 
           {/* Desktop nav */}

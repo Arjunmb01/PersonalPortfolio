@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
+import Logo from './Logo'
+
 export default function Loader({ onComplete }: { onComplete: () => void }) {
   const [progress, setProgress] = useState(0)
   const [phase, setPhase] = useState<'loading' | 'exit'>('loading')
@@ -39,13 +41,12 @@ export default function Loader({ onComplete }: { onComplete: () => void }) {
         >
           {/* Logo mark */}
           <motion.div
-            className="font-serif-italic text-5xl text-paper mb-16 tracking-tight flex flex-col items-center"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            className="mb-16 flex flex-col items-center"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span>AMB</span>
-            <span className="text-[12px] font-sans text-mist tracking-widest uppercase mt-2">Arjun M B</span>
+            <Logo size={52} />
           </motion.div>
 
           {/* Progress track */}

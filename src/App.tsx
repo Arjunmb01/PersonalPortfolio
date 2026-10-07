@@ -7,6 +7,7 @@ import About from './components/sections/About'
 import Marquee from './components/sections/Marquee'
 import Loader from './components/ui/Loader'
 import CustomCursor from './components/ui/CustomCursor'
+import AmbientBackground from './components/ui/AmbientBackground'
 
 // Lazy-load below-fold sections for performance
 const Experience = lazy(() => import('./components/sections/Experience'))
@@ -48,15 +49,16 @@ export default function App() {
 
       {/* Main app */}
       <div
-        className="min-h-screen bg-ink text-paper"
+        className="relative min-h-screen bg-ink text-paper"
         style={{
           opacity: loaded ? 1 : 0,
           transition: 'opacity 0.5s ease',
         }}
       >
+        <AmbientBackground />
         <Navbar />
 
-        <main id="main-content">
+        <main id="main-content" className="relative z-10">
           {/* Hero — critical path, not lazy */}
           <Hero />
 

@@ -1,5 +1,6 @@
 import { Globe, Link2, Mail, ArrowUpRight } from 'lucide-react'
 import { PERSONAL_INFO } from '../../lib/constants'
+import Logo from '../ui/Logo'
 
 const socials = [
   { icon: Globe, label: 'GitHub', href: PERSONAL_INFO.socials.github },
@@ -11,17 +12,16 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-paper/5 py-10 px-8 lg:px-16">
+    <footer className="relative z-10 border-t border-paper/10 bg-ink/90 backdrop-blur-xl py-12 px-8 lg:px-16">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
 
         {/* Logo */}
         <a
           href="#hero"
-          className="font-serif-italic text-xl text-paper hover:text-accent transition-colors duration-300 flex items-center gap-2"
           aria-label="Arjun M B — Home"
+          className="focus:outline-none"
         >
-          <span>AMB</span>
-          <span className="text-[11px] font-sans text-mist tracking-widest uppercase">Arjun M B</span>
+          <Logo size={32} />
         </a>
 
         {/* Center tagline */}
