@@ -3,10 +3,10 @@ import { WHY_ITEMS } from '../../lib/constants'
 
 export default function WhyMe() {
   return (
-    <section className="section-pad px-8 lg:px-16 border-t border-paper/5">
+    <section className="section-pad px-5 sm:px-8 lg:px-16 border-t border-paper/5">
       <div className="max-w-7xl mx-auto">
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-20 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-10 lg:gap-20 items-start">
           {/* Left label */}
           <motion.div
             initial={{ opacity: 0 }}

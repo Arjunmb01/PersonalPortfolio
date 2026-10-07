@@ -39,7 +39,7 @@ export default function Navbar() {
     <>
       <nav
         ref={navRef}
-        className="fixed top-0 left-0 right-0 z-50 px-8 lg:px-16"
+        className="fixed top-0 left-0 right-0 z-50 px-5 sm:px-8 lg:px-16"
         style={navStyles}
         aria-label="Main navigation"
       >
@@ -87,12 +87,12 @@ export default function Navbar() {
 
           {/* Mobile hamburger */}
           <button
-            className="md:hidden text-paper p-2"
+            className="md:hidden text-paper p-2 focus:outline-none"
             onClick={() => setMenuOpen(true)}
             aria-label="Open menu"
             aria-expanded={menuOpen}
           >
-            <Menu size={22} />
+            <Menu size={24} />
           </button>
         </div>
       </nav>
@@ -101,49 +101,61 @@ export default function Navbar() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            className="fixed inset-0 z-[100] bg-ink flex flex-col px-8 py-8"
+            className="fixed inset-0 z-[100] bg-ink/95 backdrop-blur-2xl flex flex-col px-6 sm:px-8 py-8"
             initial={{ opacity: 0, x: '100%' }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="flex justify-between items-center mb-16">
-              <span className="font-serif-italic text-2xl text-paper">AMB</span>
+            <div className="flex justify-between items-center mb-12">
+              <Logo size={32} />
               <button
                 onClick={() => setMenuOpen(false)}
-                className="text-paper p-2"
+                className="text-paper p-2 focus:outline-none"
                 aria-label="Close menu"
               >
-                <X size={22} />
+                <X size={24} />
               </button>
             </div>
 
-            <nav className="flex flex-col gap-8 flex-1">
+            <nav className="flex flex-col gap-6 flex-1 overflow-y-auto">
               {NAV_LINKS.map((link, i) => (
                 <motion.a
                   key={link.href}
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
-                  className="font-serif text-display-sm text-paper hover:text-accent transition-colors duration-300"
+                  className="font-serif text-3xl text-paper hover:text-accent transition-colors duration-300"
                   initial={{ opacity: 0, x: 40 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.1 + i * 0.07, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ delay: 0.1 + i * 0.05, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                 >
                   {link.label}
                 </motion.a>
               ))}
             </nav>
 
-            <motion.a
-              href="#contact"
-              onClick={() => setMenuOpen(false)}
-              className="mt-auto py-5 text-center text-caption tracking-widest uppercase text-ink bg-accent"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.5 }}
-            >
-              Let's Work Together
-            </motion.a>
+            <div className="mt-auto pt-6 border-t border-paper/10 flex flex-col gap-3">
+              <a
+                href="/resume.pdf"
+                download="Arjun_MB_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMenuOpen(false)}
+                className="py-3.5 text-center text-caption tracking-widest uppercase text-paper border border-paper/20 hover:border-accent"
+              >
+                Download Resume
+              </a>
+              <motion.a
+                href="#contact"
+                onClick={() => setMenuOpen(false)}
+                className="py-4 text-center text-caption tracking-widest uppercase text-ink bg-accent font-medium shadow-lg shadow-accent/20"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.35, duration: 0.4 }}
+              >
+                Let's Work Together
+              </motion.a>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

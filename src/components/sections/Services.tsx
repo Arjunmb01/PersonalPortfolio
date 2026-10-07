@@ -40,7 +40,7 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[0]; index: n
 
 export default function Services() {
   return (
-    <section id="services" className="section-pad px-8 lg:px-16 border-t border-paper/5">
+    <section id="services" className="section-pad px-5 sm:px-8 lg:px-16 border-t border-paper/5">
       <div className="max-w-7xl mx-auto">
 
         {/* Header */}

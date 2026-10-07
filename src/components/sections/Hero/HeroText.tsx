@@ -33,7 +33,7 @@ export default function HeroText({ scrollProgress }: HeroTextProps) {
   const isRightActive = phase2Opacity > 0.01 || phase3Opacity > 0.01
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-16 pointer-events-none">
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 pointer-events-none">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center w-full">
 
         {/* ── PHASE 1: INITIAL HERO BRANDING (Left Column) ────────────────── */}

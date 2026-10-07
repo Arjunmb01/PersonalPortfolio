@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
   <defs>
-    <!-- Deep Luxury Black Background with Subtle Inner Border -->
+    <!-- Background Gradient -->
     <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#141414" />
       <stop offset="100%" stop-color="#070707" />
@@ -14,7 +14,7 @@
       <stop offset="100%" stop-color="#917238" />
     </linearGradient>
 
-    <!-- Deep Gold Shadow -->
+    <!-- Deep Shadow Gold -->
     <linearGradient id="favGoldDark" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#c8a96e" />
       <stop offset="100%" stop-color="#6e5320" />
@@ -29,41 +29,37 @@
 
   <!-- Base Icon Tile -->
   <rect width="64" height="64" rx="16" fill="url(#bgGrad)" />
-  <rect x="1" y="1" width="62" height="62" rx="15" fill="none" stroke="#c8a96e" stroke-opacity="0.3" stroke-width="1.2" />
+  <rect x="1.5" y="1.5" width="61" height="61" rx="14.5" fill="none" stroke="#c8a96e" stroke-opacity="0.4" stroke-width="1.2" />
 
-  <!-- Background Diamond Grid Accent -->
+  <!-- Background Diamond Grid -->
   <path
-    d="M32 7 L54 32 L32 57 L10 32 Z"
+    d="M32 6 L56 32 L32 58 L8 32 Z"
     fill="none"
     stroke="url(#favGold)"
     stroke-width="0.8"
-    stroke-opacity="0.2"
+    stroke-opacity="0.25"
     stroke-dasharray="2 2"
   />
 
-  <!-- 'A' Apex & Upper Facets -->
+  <!-- 'A' Left Pillar -->
   <path
-    d="M32 12 L45 34 L41 34 L32 18 L23 34 L19 34 Z"
-    fill="url(#favGold)"
-  />
-
-  <!-- 'M' Wing Bridges -->
-  <path
-    d="M19 31 L25 45 L29 45 L23 31 Z"
+    d="M32 9 L13 52 L21 52 L32 25 L32 9 Z"
     fill="url(#favGoldDark)"
   />
+
+  <!-- 'A' Right Pillar -->
   <path
-    d="M45 31 L39 45 L35 45 L41 31 Z"
+    d="M32 9 L51 52 L43 52 L32 25 L32 9 Z"
     fill="url(#favGold)"
   />
 
-  <!-- Interlocking 'B' Lower Curves & Spine -->
+  <!-- 'A' Faceted Crossbar -->
   <path
-    d="M32 32 C38 32 42 34.5 42 38 C42 40.5 40 42.5 37 43.2 C41 43.8 43.5 46 43.5 49.5 C43.5 53.8 38 55.5 31 55.5 L21 55.5 L21 52 L31 52 C36 52 39.5 51.2 39.5 49.2 C39.5 47.2 36 46.2 31.5 46.2 L26 46.2 L26 43 L31.5 43 C36 43 38.5 42 38.5 40.2 C38.5 38.5 35 35 31 35 L25 35 L25 32 Z"
+    d="M21 39 L43 39 L41 43.5 L23 43.5 Z"
     fill="url(#favGold)"
   />
 
-  <!-- Core Spark Light -->
-  <circle cx="32" cy="26" r="2" fill="#ffffff" />
-  <circle cx="32" cy="26" r="5" fill="url(#favSpark)" />
+  <!-- Apex Star Spark -->
+  <circle cx="32" cy="16" r="2" fill="#ffffff" />
+  <circle cx="32" cy="16" r="6" fill="url(#favSpark)" />
 </svg>

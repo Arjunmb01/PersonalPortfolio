@@ -8,7 +8,7 @@ const PHILOSOPHY_QUOTE = {
 
 export default function Testimonials() {
   return (
-    <section className="section-pad px-8 lg:px-16 border-t border-paper/5">
+    <section className="section-pad px-5 sm:px-8 lg:px-16 border-t border-paper/5">
       <div className="max-w-7xl mx-auto">
 
         <motion.p

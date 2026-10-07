@@ -4,7 +4,7 @@ import { Briefcase, Calendar } from 'lucide-react'
 
 export default function Experience() {
   return (
-    <section id="experience" className="section-pad px-8 lg:px-16 border-t border-paper/5">
+    <section id="experience" className="section-pad px-5 sm:px-8 lg:px-16 border-t border-paper/5">
       <div className="max-w-7xl mx-auto">
         <div className="mb-20">
           <motion.p
@@ -28,7 +28,7 @@ export default function Experience() {
           </motion.h2>
         </div>
 
-        <div className="relative border-l border-paper/10 ml-4 md:ml-8 pl-8 md:pl-12 space-y-16">
+        <div className="relative border-l border-paper/10 ml-3 sm:ml-6 md:ml-8 pl-6 sm:pl-8 md:pl-12 space-y-16">
           {EXPERIENCES.map((exp, i) => (
             <motion.div
               key={exp.role + exp.company}
@@ -39,7 +39,7 @@ export default function Experience() {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: i * 0.1 }}
             >
               {/* Dot */}
-              <div className="absolute -left-[41px] md:-left-[57px] top-1.5 w-4 h-4 rounded-full bg-ink border-2 border-accent transition-transform duration-300 group-hover:scale-125" />
+              <div className="absolute -left-[33px] sm:-left-[41px] md:-left-[57px] top-1.5 w-4 h-4 rounded-full bg-ink border-2 border-accent transition-transform duration-300 group-hover:scale-125" />
 
               <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-2 mb-4">
                 <div>

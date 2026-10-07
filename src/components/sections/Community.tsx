@@ -39,11 +39,11 @@ const platforms = [
 
 export default function Community() {
   return (
-    <section className="section-pad px-8 lg:px-16 border-t border-paper/5">
+    <section className="section-pad px-5 sm:px-8 lg:px-16 border-t border-paper/5">
       <div className="max-w-7xl mx-auto">
 
         {/* Header */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 mb-20">
           <div>
             <motion.p
               className="text-caption text-accent tracking-widest uppercase mb-6"
