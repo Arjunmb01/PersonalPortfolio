@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { gsap, ScrollTrigger } from '../../../lib/gsap'
 import HeroCanvas, { HeroCanvasHandle } from './HeroCanvas'
 import HeroText from './HeroText'
+import MobileHero from './MobileHero'
 
 export default function Hero() {
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -15,30 +16,36 @@ export default function Hero() {
     const sticky = stickyRef.current
     if (!section || !sticky) return
 
-    // Create the pinned scroll trigger — 300vh of scroll to complete 360°
-    const trigger = ScrollTrigger.create({
-      trigger: section,
-      start: 'top top',
-      end: '+=300%',
-      pin: sticky,
-      pinSpacing: true,
-      scrub: 1, // 1s smoothing
-      onUpdate: (self) => {
-        const progress = self.progress
-        setScrollProgress(progress)
-        canvasRef.current?.setProgress(progress)
+    // Enable pinned 360° scroll glide ONLY on desktop / tablet screens (>= 768px)
+    const mm = gsap.matchMedia()
+    mm.add('(min-width: 768px)', () => {
+      const trigger = ScrollTrigger.create({
+        trigger: section,
+        start: 'top top',
+        end: '+=300%',
+        pin: sticky,
+        pinSpacing: true,
+        scrub: 1, // 1s smoothing
+        onUpdate: (self) => {
+          const progress = self.progress
+          setScrollProgress(progress)
+          canvasRef.current?.setProgress(progress)
 
-        // Hide scroll indicator after first 5%
-        if (progress > 0.05) {
-          setIndicatorVisible(false)
-        } else {
-          setIndicatorVisible(true)
-        }
-      },
+          if (progress > 0.05) {
+            setIndicatorVisible(false)
+          } else {
+            setIndicatorVisible(true)
+          }
+        },
+      })
+
+      return () => {
+        trigger.kill()
+      }
     })
 
     return () => {
-      trigger.kill()
+      mm.revert()
     }
   }, [])
 
@@ -47,12 +54,17 @@ export default function Hero() {
       ref={sectionRef}
       id="hero"
       className="relative"
-      aria-label="Hero — 360 degree interactive portrait"
+      aria-label="Hero — Arjun M B Full Stack Developer"
     >
-      {/* Pinned sticky container — this stays fixed while parent scrolls */}
+      {/* ── MOBILE HERO (< 768px): Dedicated Luxury Mobile Experience ── */}
+      <div className="block md:hidden">
+        <MobileHero />
+      </div>
+
+      {/* ── DESKTOP HERO (>= 768px): Pinned 360° Interactive Canvas Experience ── */}
       <div
         ref={stickyRef}
-        className="relative w-full h-screen overflow-hidden bg-ink"
+        className="hidden md:block relative w-full h-screen overflow-hidden bg-ink"
       >
         {/* ── Canvas frame display ─────────────────────── */}
         <div className="absolute inset-0 z-10">
