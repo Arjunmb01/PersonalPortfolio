@@ -15,7 +15,6 @@
     "vite": "^8.3.0"
   },
   "dependencies": {
-    "@studio-freight/lenis": "^1.0.42",
     "@tailwindcss/vite": "^4.3.3",
     "@types/three": "^0.186.0",
     "@vitejs/plugin-react": "^6.1.1",
